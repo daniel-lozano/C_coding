@@ -51,11 +51,6 @@ plt.xlim(0,2*np.pi)
 plt.ylim(-2.1,2.1)
 plt.scatter(k,vp1)
 plt.scatter(k,-vp2)
-plt.title("$ \mathrm{Open\ boundary} $")
-plt.xticks([0,np.pi/2,np.pi,np.pi*3/2,2*np.pi],["0","$ \pi/2 $","$ \pi $","$ 3\pi/2 $","$ 2\pi $"])
-plt.xlabel("$ \\frac{2\pi k}{N} $",size=15)
-plt.ylabel("$ E $", size=15)
-plt.savefig("open.png")
 plt.show()
 
 
