@@ -17,10 +17,10 @@ zz=np.kron(sz,sz)
 
 D=5.5 #Parametro
 N=int(argv[1])
-PBC=0
+PBC=1
 dim=2**N
 
-Case_pbc=np.kron(sx,np.kron(np.eye(2**(N-2)),sx))+np.kron(sy,np.kron(np.eye(2**(N-2)),sy))+np.kron(sz,np.kron(np.eye(2**(N-2)),sz))
+Case_pbc=np.kron(sx,np.kron(np.eye(2**(N-2)),sx))+np.kron(sy,np.kron(np.eye(2**(N-2)),sy))+D*np.kron(sz,np.kron(np.eye(2**(N-2)),sz))
 
 
 Ham=np.zeros((dim,dim))+PBC*Case_pbc
@@ -37,10 +37,9 @@ for i in range(N-1):
 w,v=la.eig(Ham)
 dot=np.linspace(1,len(w),len(w))
 w.sort()
-print len(w)
 
 for i in range(len(w)):
 	print w[i]
-
-
+plt.scatter(dot,w)
+plt.show()
 
