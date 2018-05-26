@@ -15,6 +15,7 @@ for i in range(len(T)):
     LABELS.append(" "+ str(T[i]) +" ")
 
 for l in range(len(T)):
+
     t=T[l]
     a=1-Delta
     b=1+Delta
@@ -25,30 +26,26 @@ for l in range(len(T)):
 
 
 #llenando matriz de estados propios
-    for i in range(sites):
-        for j in range(sites):
-            if(i==j):
-                Ham1[i][j]=a
-                Ham2[i][j]=a
-            if(i==j-1):
-                Ham2[i][j]=b
-            if(i==j+1):
-                Ham1[i][j]=b
+    
 
+    Ham1+=np.diag(np.ones(sites))*a  + b*np.diag(np.ones(sites-1),-1)
 
-    D=np.bmat([[Zeros,Ham1+np.diag(np.ones(sites-1)*t,-1)+np.diag(np.ones(sites-1)*t,+1)],[Ham2,Zeros]])
+    Ham2+=np.diag(np.ones(sites))*a+ b*np.diag(np.ones(sites-1),1) 
+
+    AA=np.diag(np.ones(sites-1)*t,-1)+np.diag(np.ones(sites-1)*t,+1)
+
+    AB=Ham1
+    BA=Ham2
+    BB=Zeros
+    D=np.bmat([[AA,AB],[BA,BB]])
 
 
 
     vp1,Vp1=la.eig(D)
-    print len(vp1)
     Difference.append(abs(vp1[39]-vp1[38]))
-    print vp1[39],vp1[38]
-    print Difference[-1]
-
-
+    
     k=np.ones(len(vp1))*T[l]
-    plt.plot(k,vp1,"_")
+    plt.plot(k,vp1,"_",linewidth=40)
 
 
 
