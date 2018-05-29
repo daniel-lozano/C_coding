@@ -35,7 +35,7 @@ for l in range(len(T)):
     AA=np.diag(np.ones(sites-1)*t,-1)+np.diag(np.ones(sites-1)*t,+1)
     AB=Ham1
     BA=Ham2
-    BB=Zeros
+    BB=Zeros#+AA
     D=np.bmat([[AA,AB],[BA,BB]])
 
 
@@ -52,7 +52,7 @@ for l in range(len(T)):
 
 
 plt.ylim(-2.1,2.1)
-plt.title("$ \mathrm{Open\ boundary\ Blocks} $")
+plt.title("$ \mathrm{Open\ boundary\ Blocks,}\ \delta= $" +str(Delta))
 plt.xticks(T,LABELS)
 plt.xlabel("$ t $",size=15)
 plt.ylabel("$ E $", size=15)
