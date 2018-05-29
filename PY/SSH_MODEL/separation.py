@@ -5,50 +5,55 @@ from sys import argv
 
 
 Sites=[10,15,20,25,30,35,40,45,50]
-Delta=0.1
+
+Delta=[0,0.1,0.2,0.3,0.4,0.5]
 LABELS=[]
 
-Difference=[]
+
+
 
 for i in range(len(Sites)):
     LABELS.append(" "+ str(Sites[i]) +" ")
 
-for l in range(len(Sites)):
+for m in range(len(Delta)):
+    Difference=[]
+    for l in range(len(Sites)):
 
-    a=1-Delta
-    b=1+Delta
-    sites=Sites[l]
-    print sites
-    Ham1=np.zeros([sites,sites])
-    Ham2=np.zeros([sites,sites])
-    Zeros=np.zeros([sites,sites])
+        a=1-Delta[m]
+        b=1+Delta[m]
+        sites=Sites[l]
+        
+        Ham1=np.zeros([sites,sites])
+        Ham2=np.zeros([sites,sites])
+        Zeros=np.zeros([sites,sites])
 
 
 #llenando matriz de estados propios
-    for i in range(sites):
-        for j in range(sites):
-            if(i==j):
-                Ham1[i][j]=a
-                Ham2[i][j]=a
-            if(i==j-1):
-                Ham2[i][j]=b
-            if(i==j+1):
-                Ham1[i][j]=b
+        for i in range(sites):
+            for j in range(sites):
+                if(i==j):
+                    Ham1[i][j]=a
+                    Ham2[i][j]=a
+                if(i==j-1):
+                    Ham2[i][j]=b
+                if(i==j+1):
+                    Ham1[i][j]=b
 
 
-    D=np.bmat([[Zeros,Ham1],[Ham2,Zeros]])
+        D=np.bmat([[Zeros,Ham1],[Ham2,Zeros]])
 
 
 
-    vp1,Vp1=la.eig(D)
-    vp1.sort()
-    print vp1[len(vp1)/2], vp1[len(vp1)/2-1]
-    Difference.append( vp1[len(vp1)/2]-vp1[len(vp1)/2-1])
-    print Difference[-1]
+        vp1,Vp1=la.eig(D)
+        vp1.sort()
+        #    print vp1[len(vp1)/2], vp1[len(vp1)/2-1]
+        Difference.append( vp1[len(vp1)/2]-vp1[len(vp1)/2-1])
+        #    print Difference[-1]
 
 
-plt.semilogy(Sites,Difference,"o-")
+    plt.semilogy(Sites,Difference,"o-",label="$ \delta= $"+str(Delta[m]))
 #plt.xticks(Sites,LABELS)
+plt.legend()
 plt.show()
 
 
