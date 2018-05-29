@@ -5,11 +5,15 @@ from sys import argv
 
 
 sites=40
-Delta=[0,0.1,0.2,0.3,0.5,0.6,0.7,0.8,1.0]
+Delta=[0]
+for i in range(11):
+    Delta.append(i*1.0/10)
+    Delta.append(-i*1.0/10)
+
 LABELS=[]
 
 Difference=[]
-
+plt.figure(figsize=(10,7))
 for i in range(len(Delta)):
     LABELS.append(" "+ str(Delta[i]) +" ")
 
@@ -40,23 +44,24 @@ for l in range(len(Delta)):
 
 
     vp1,Vp1=la.eig(D)
-    print len(vp1)
+    #print len(vp1)
     Difference.append(abs(vp1[39]-vp1[38]))
-    print vp1[39],vp1[38]
-    print Difference[-1]
+    #print vp1[39],vp1[38]
+    #print Difference[-1]
 
 
     k=np.ones(len(vp1))*Delta[l]
-    plt.plot(k,vp1,"+")
-    plt.plot(-k,vp1,"+")
+    plt.plot(k,vp1,"_")
 
 
 
+
+#plt.xticks(rotation=90)
 
 plt.xlim(-1.1,1.1)
 plt.ylim(-2.1,2.1)
 plt.title("$ \mathrm{Open\ boundary\ Blocks} $")
-plt.xticks([0,0.5,1],["0","$  0.5 $","$ 1 $"])
+plt.xticks(Delta,LABELS)
 plt.xlabel("$ \delta $",size=15)
 plt.ylabel("$ E $", size=15)
 plt.savefig("open_b.png")

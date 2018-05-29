@@ -33,7 +33,6 @@ for l in range(len(T)):
     Ham2+=np.diag(np.ones(sites))*a+ b*np.diag(np.ones(sites-1),1) 
 
     AA=np.diag(np.ones(sites-1)*t,-1)+np.diag(np.ones(sites-1)*t,+1)
-
     AB=Ham1
     BA=Ham2
     BB=Zeros
